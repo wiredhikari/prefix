@@ -422,6 +422,9 @@ bootstrap_setup() {
 		i*86-pc-linux-gnu)
 			profile=${profile_linux/ARCH/x86}
 			;;
+		riscv64-pc-linux-gnu)
+			profile=${profile_linux/ARCH/riscv}	
+			;;	
 		x86_64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/amd64}
 			profile=${profile/17.0/17.1/no-multilib}
@@ -434,6 +437,9 @@ bootstrap_setup() {
 			;;
 		powerpc64le-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/ppc64le}
+			;;
+		riscv-pc-unknown-linux-gnu)
+			profile=${profile_linux/ARCH/riscv}	
 			;;
 		aarch64-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/arm64}
@@ -2109,7 +2115,7 @@ bootstrap_stage3() {
 			sys-devel/binutils-config
 			sys-libs/zlib
 			${linker}
-		)
+		).
 
 		pre_emerge_pkgs --nodeps "${pkgs[@]}" || return 1
 	fi
@@ -2253,7 +2259,7 @@ set_helper_vars() {
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
-	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} http://rsync.prefix.bitzolder.nl)
+	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/gentoo)
 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/snapshots"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
