@@ -423,7 +423,7 @@ bootstrap_setup() {
 			profile=${profile_linux/ARCH/x86}
 			;;
 		riscv64-pc-linux-gnu)
-			profile=${profile_linux/ARCH/riscv/20.0/}	
+			profile=${profile_linux/ARCH/riscv/}	
 			profile=${profile/20.0/}
 			;;	
 		x86_64-pc-linux-gnu)
@@ -2265,7 +2265,7 @@ set_helper_vars() {
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="https://github.com/wiredhikari/gentoo"}
 	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/gentoo)
-	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/snapshots"}
+	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
 	export MAKE CONFIG_SHELL
