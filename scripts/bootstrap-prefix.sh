@@ -423,7 +423,8 @@ bootstrap_setup() {
 			profile=${profile_linux/ARCH/x86}
 			;;
 		riscv64-pc-linux-gnu)
-			profile=${profile_linux/ARCH/riscv}	
+			profile=${profile_linux/ARCH/riscv/20.0/rv64gc}	
+			profile=${profile/20.0/rv64gc}
 			;;	
 		x86_64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/amd64}
@@ -2262,7 +2263,7 @@ set_helper_vars() {
 	GNU_URL=${GNU_URL:="http://ftp.gnu.org/gnu"}
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
-	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
+	GENTOO_MIRRORS=${GENTOO_MIRRORS:="https://github.com/wiredhikari/gentoo"}
 	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/gentoo)
 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/snapshots"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
