@@ -376,7 +376,7 @@ bootstrap_setup() {
 		fi
 		[[ -f ${ROOT}/etc/resolv.conf ]] || ln -s {,"${ROOT}"}/etc/resolv.conf
 		[[ -f ${ROOT}/etc/hosts ]] || cp {,"${ROOT}"}/etc/hosts
-		local profile_linux=default/linux/ARCH/17.0/prefix/$(profile-kernel)
+		local profile_linux=default/linux/ARCH/20.0/prefix/rv64gc
 	else
 		local profile_linux=prefix/linux/ARCH
 	fi
@@ -423,7 +423,7 @@ bootstrap_setup() {
 			profile=${profile_linux/ARCH/x86}
 			;;
 		riscv64-pc-linux-gnu)
-			profile=${profile_linux/ARCH/riscv/}	
+			profile=${profile_linux/ARCH/riscv}	
 			profile=${profile/20.0/}
 			;;	
 		x86_64-pc-linux-gnu)
