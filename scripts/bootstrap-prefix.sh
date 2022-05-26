@@ -616,7 +616,7 @@ bootstrap_tree() {
 	is-rap && LATEST_TREE_YES=1
 	local PV="20220116"
 	if [[ -n ${LATEST_TREE_YES} ]]; then
-		do_tree https://github.com/wiredhikari/portage/archive/refs/tags/latest.tar.gz
+		do_tree "${SNAPSHOT_URL}" portage-latest.tar.bz2
 	else
 		do_tree https://github.com/wiredhikari/portage/archive/refs/tags/latest.tar.gz
 	
@@ -2258,7 +2258,7 @@ set_helper_vars() {
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
 	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} http://rsync.prefix.bitzolder.nl)
-	SNAPSHOT_URL="http://github.com/wiredhikari/portage/archive/refs/tags"
+	SNAPSHOT_URL=${SNAPSHOT_URL:-"http://github.com/wiredhikari/portage/archive/refs/tags"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
 	export MAKE CONFIG_SHELL
