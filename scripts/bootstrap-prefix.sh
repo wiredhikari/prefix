@@ -616,7 +616,7 @@ bootstrap_tree() {
 	is-rap && LATEST_TREE_YES=1
 	local PV="20220116"
 	if [[ -n ${LATEST_TREE_YES} ]]; then
-		do_tree "${SNAPSHOT_URL}" portage-latest.tar.bz2
+		do_tree https://github.com/wiredhikari/portage/releases/tags/prefix-overlay.tar.bz2
 	else
 		do_tree https://github.com/wiredhikari/portage/releases/tags/prefix-overlay.tar.bz2
 	
@@ -2257,7 +2257,7 @@ set_helper_vars() {
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
-	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/)
+	SNAPSHOT_HOST= "https://github.com/wiredhikari/"
 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/portage/archive/refs/tags"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
