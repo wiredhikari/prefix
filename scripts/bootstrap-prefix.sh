@@ -616,7 +616,7 @@ bootstrap_tree() {
 	is-rap && LATEST_TREE_YES=1
 	local PV="20220116"
 	if [[ -n ${LATEST_TREE_YES} ]]; then
-		do_tree "${SNAPSHOT_URL}" portage-latest.tar.gz
+		do_tree "${SNAPSHOT_URL}" portage-latest.tar.bz2
 	else
 		do_tree https://github.com/wiredhikari/portage/archive/refs/tags/portage-latest.tar.gz
 	
