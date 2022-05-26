@@ -605,7 +605,7 @@ do_tree() {
 		fi
 		einfo "Unpacking, this may take a while"
 		estatus "stage1: unpacking Portage tree"
-		gzip2 -dc ${DISTDIR}/$2 | tar -xf - -C ${PORTDIR} --strip-components=1
+		gzip -dc ${DISTDIR}/$2 | tar -xf - -C ${PORTDIR} --strip-components=1
 		[[ ${PIPESTATUS[*]} == '0 0' ]] || return 1
 		touch ${PORTDIR}/.unpacked
 	fi
