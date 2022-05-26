@@ -2257,7 +2257,7 @@ set_helper_vars() {
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
-	SNAPSHOT_HOST= "https://github.com/wiredhikari"
+	SNAPSHOT_HOST= $(rapx "https://github.com/wiredhikari" ${GENTOO_MIRRORS})
 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/portage/archive/refs/tags"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
