@@ -616,9 +616,9 @@ bootstrap_tree() {
 	is-rap && LATEST_TREE_YES=1
 	local PV="20220116"
 	if [[ -n ${LATEST_TREE_YES} ]]; then
-		do_tree https://github.com/wiredhikari/portage/releases/tags/prefix-overlay.tar.bz2
+		do_tree https://github.com/wiredhikari/portage/archive/refs/tags/portage-latest.tar.gz
 	else
-		do_tree https://github.com/wiredhikari/portage/releases/tags/prefix-overlay.tar.bz2
+		do_tree https://github.com/wiredhikari/portage/archive/refs/tags/portage-latest.tar.gz
 	
 	fi
 	local ret=$?
