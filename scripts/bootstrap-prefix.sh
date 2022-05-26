@@ -685,7 +685,7 @@ bootstrap_portage() {
 	STABLE_PV="3.0.30.1"
 	[[ ${TESTING_PV} == latest ]] && TESTING_PV="3.0.30.1"
 	PV="${TESTING_PV:-${STABLE_PV}}"
-	A=${PV}.tar.bz2
+	A=prefix-portage-${PV}.tar.bz2
 	einfo "Bootstrapping ${A%.tar.*}"
 
 	efetch ${DISTFILES_URL}/${A} || return 1
