@@ -681,7 +681,7 @@ bootstrap_portage() {
 	STABLE_PV="3.0.30.1"
 	[[ ${TESTING_PV} == latest ]] && TESTING_PV="3.0.30.1"
 	PV="${TESTING_PV:-${STABLE_PV}}"
-	A=prefix-portage-${PV}.tar.bz2
+	A=${PV}.tar.bz2
 	einfo "Bootstrapping ${A%.tar.*}"
 
 	efetch ${DISTFILES_URL}/${A} || return 1
@@ -2248,7 +2248,7 @@ set_helper_vars() {
 	export DISTDIR=${DISTDIR:-"${ROOT}/var/cache/distfiles"}
 	PORTAGE_TMPDIR=${PORTAGE_TMPDIR:-${ROOT}/var/tmp}
 	MAKE_CONF_DIR="${ROOT}/etc/portage/make.conf/"
-	DISTFILES_URL=${DISTFILES_URL:-"http://dev.gentoo.org/~grobian/distfiles"}
+	DISTFILES_URL=${DISTFILES_URL:-"https://github.com/wiredhikari/portage/archive/refs/tags/"}
 	GNU_URL=${GNU_URL:="http://ftp.gnu.org/gnu"}
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
