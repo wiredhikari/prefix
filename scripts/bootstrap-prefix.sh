@@ -380,7 +380,7 @@ bootstrap_setup() {
 	else
 		local profile_linux=prefix/linux/ARCH
 	fi
-
+		num=20.0
 	case ${CHOST} in
 		powerpc-apple-darwin9)
 			rev=${CHOST##*darwin}
@@ -435,7 +435,6 @@ bootstrap_setup() {
 		powerpc64le-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/ppc64le}
 			;;
-			num=20.0
 		riscv64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/riscv}	
 			profile=${profile/${num}/rv64gc}
@@ -1061,7 +1060,7 @@ bootstrap_python() {
 		# apply patches from cygwinports much like the ebuild does
 		local gitrev pf pn
 		gitrev="71f2ac2444946c97d892be3892e47d2a509e0e96" # python36 3.6.8
-		efetch "https://github.com/cygwinports/python36/archive/${gitrev}.tar.gz" \
+		efetch "https://github.com/cygwinports/python36/archive/${gitrev}.tar.zgz" \
 			|| return 1
 		gzip -dc "${DISTDIR}"/${gitrev}.tar.gz | tar -xf -
 		[[ ${PIPESTATUS[*]} == '0 0' ]] || return 1
