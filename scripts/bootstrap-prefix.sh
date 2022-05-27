@@ -701,7 +701,7 @@ bootstrap_portage() {
 	rm -rf "${S}" >& /dev/null
 	mkdir -p "${S}" >& /dev/null
 	cd "${S}"
-	gzip -dc "${DISTDIR}/${A}" | tar -xf -
+	bzip2 -dc "${DISTDIR}/${A}" | tar -xf -
 	[[ ${PIPESTATUS[*]} == '0 0' ]] || return 1
 	S="${S}/prefix-portage-${PV}"
 	cd "${S}"
