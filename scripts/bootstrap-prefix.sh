@@ -1060,7 +1060,7 @@ bootstrap_python() {
 		# apply patches from cygwinports much like the ebuild does
 		local gitrev pf pn
 		gitrev="71f2ac2444946c97d892be3892e47d2a509e0e96" # python36 3.6.8
-		efetch "https://github.com/cygwinports/python36/archive/${gitrev}.tar.zgz" \
+		efetch "https://github.com/cygwinports/python36/archive/${gitrev}.tar.gz" \
 			|| return 1
 		gzip -dc "${DISTDIR}"/${gitrev}.tar.gz | tar -xf -
 		[[ ${PIPESTATUS[*]} == '0 0' ]] || return 1
