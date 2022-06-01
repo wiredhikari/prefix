@@ -380,7 +380,6 @@ bootstrap_setup() {
 	else
 		local profile_linux=prefix/linux/ARCH
 	fi
-		num=20.0
 	case ${CHOST} in
 		powerpc-apple-darwin9)
 			rev=${CHOST##*darwin}
@@ -437,7 +436,7 @@ bootstrap_setup() {
 			;;
 		riscv64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/riscv}	
-			profile=${profile/${num}/rv64gc}
+			profile=${profile/20.0/rv64gc}
 			;;
 		riscv-pc-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/riscv}	
