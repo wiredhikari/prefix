@@ -376,7 +376,7 @@ bootstrap_setup() {
 		fi
 		[[ -f ${ROOT}/etc/resolv.conf ]] || ln -s {,"${ROOT}"}/etc/resolv.conf
 		[[ -f ${ROOT}/etc/hosts ]] || cp {,"${ROOT}"}/etc/hosts
-		local profile_linux=default/linux/ARCH/
+		local profile_linux=default/linux/ARCH/20.0/rv64gc/lp64d/prefix/$(profile-kernel)
 	else
 		local profile_linux=prefix/linux/ARCH
 	fi
