@@ -160,7 +160,7 @@ configure_toolchain() {
 	*-darwin*)
 	  # handled below
 	  ;;
-	*-freebsd*)
+	*-freebsd* | *-openbsd*)
 	  # comes with clang, handled below
 	  ;;
 	*)
@@ -267,7 +267,7 @@ configure_toolchain() {
 				sys-devel/llvm
 				sys-devel/clang"
 			;;
-		*-freebsd*)
+		*-freebsd* | *-openbsd*)
 			CC=clang
 			CXX=clang++
 			# TODO: target clang toolchain someday?
@@ -959,8 +959,9 @@ bootstrap_gnu() {
 	# contain cruft, bug #650284
 	[[ ${PN} == "bash" ]] && \
 		export CPPFLAGS="${CPPFLAGS} \
-			-DSYS_BASHRC=\'\"${ROOT}/etc/bash/bashrc\"\' \
-			-DSYS_BASH_LOGOUT=\'\"${ROOT}/etc/bash/bash_logout\"\'"
+			-DSYS_BASHRC=\\\"${ROOT}/etc/bash/bashrc\\\" \
+			-DSYS_BASH_LOGOUT=\\\"${ROOT}/etc/bash/bash_logout\\\" \
+		"
 
 	# Don't do ACL stuff on Darwin, especially Darwin9 will make
 	# coreutils completely useless (install failing on everything)
@@ -1108,6 +1109,13 @@ bootstrap_python() {
 			-e "/Unexpected output of 'arch' on OSX/d" \
 			configure
 		;;
+	(*-openbsd*)
+		# OpenBSD is not a multilib system
+		sed -i \
+			-e '0,/#if defined(__ANDROID__)/{s/ANDROID/OpenBSD/}' \
+			-e '0,/MULTIARCH=/{s/\(MULTIARCH\)=.*/\1=""/}' \
+			configure
+		;;
 	esac
 
 	case ${CHOST} in
@@ -1163,6 +1171,10 @@ bootstrap_python() {
 			# GNU ld
 			LDFLAGS="${LDFLAGS} -Wl,-rpath,${ROOT}/tmp/usr/lib ${libdir}"
 			LDFLAGS="${LDFLAGS} -Wl,-rpath,${libdir#-L}"
+		;;
+		*-openbsd*)
+			# LLD
+			LDFLAGS="${LDFLAGS} -Wl,-rpath,${ROOT}/tmp/usr/lib"
 		;;
 		*-solaris*)
 			# Sun ld
@@ -1635,7 +1647,7 @@ bootstrap_stage1() {
 		-e ${MAKE_CONF_DIR}/0100_bootstrap_prefix_make.conf ]] \
 		|| (bootstrap_setup) || return 1
 	mkdir -p "${ROOT}"/tmp/etc/. || return 1
-	[[ -e ${ROOT}/tmp/etc/portage/make.profile ]] || cp -dpR "${ROOT}"/etc/portage "${ROOT}"/tmp/etc || return 1
+	[[ -e ${ROOT}/tmp/etc/portage/make.profile ]] || "${ROOT}"/tmp/bin/cp -dpR "${ROOT}"/etc/portage "${ROOT}"/tmp/etc || return 1
 
 	# setup portage
 	[[ -e ${ROOT}/tmp/usr/bin/emerge ]] || (bootstrap_portage) || return 1
@@ -2632,12 +2644,18 @@ EOF
 	echo
 	local ncpu=
 	case "${CHOST}" in
-		*-cygwin*)     ncpu=$(cmd /D /Q /C 'echo %NUMBER_OF_PROCESSORS%' | tr -d "\\r") ;;
-		*-darwin*)     ncpu=$(/usr/sbin/sysctl -n hw.ncpu)                 ;;
-		*-freebsd*)    ncpu=$(/sbin/sysctl -n hw.ncpu)                     ;;
-		*-solaris*)    ncpu=$(/usr/sbin/psrinfo | wc -l)                   ;;
-		*-linux-gnu*)  ncpu=$(cat /proc/cpuinfo | grep processor | wc -l)  ;;
-		*)             ncpu=1                                              ;;
+		*-cygwin*)
+			ncpu=$(cmd /D /Q /C 'echo %NUMBER_OF_PROCESSORS%' | tr -d "\\r") ;;
+		*-darwin*)
+			ncpu=$(/usr/sbin/sysctl -n hw.ncpu) ;;
+		*-freebsd* | *-openbsd*)
+			ncpu=$(/sbin/sysctl -n hw.ncpu) ;;
+		*-solaris*)
+			ncpu=$(/usr/sbin/psrinfo | wc -l) ;;
+		*-linux-gnu*)
+			ncpu=$(cat /proc/cpuinfo | grep processor | wc -l) ;;
+		*)
+			ncpu=1 ;;
 	esac
 	# get rid of excess spaces (at least Solaris wc does)
 	ncpu=$((ncpu + 0))
@@ -2895,8 +2913,8 @@ EOF
 		# GNU and BSD variants of stat take different arguments (and
 		# format specifiers are not equivalent)
 		case "${CHOST}" in
-			*-darwin* | *-freebsd*) STAT='stat -f %u/%g' ;;
-			*)                      STAT='stat -c %U/%G' ;;
+			*-darwin* | *-freebsd* | *-openbsd*) STAT='stat -f %u/%g' ;;
+			*)                                   STAT='stat -c %U/%G' ;;
 		esac
 
 		if [[ $(${STAT} "${EPREFIX}"/.canihaswrite) != \
@@ -3192,6 +3210,13 @@ if [[ -z ${CHOST} ]]; then
 				case `uname -m` in
 					amd64)
 						CHOST="x86_64-pc-freebsd`uname -r | sed 's|-.*$||'`"
+					;;
+				esac
+				;;
+			OpenBSD)
+				case `uname -m` in
+					amd64)
+						CHOST="x86_64-pc-openbsd`uname -r | sed 's|-.*$||'`"
 					;;
 				esac
 				;;
