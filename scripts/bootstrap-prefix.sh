@@ -624,7 +624,7 @@ bootstrap_tree() {
 	if [[ -n ${LATEST_TREE_YES} ]]; then
 		do_tree "${SNAPSHOT_URL}" portage-latest.tar.bz2
 	else
-		do_tree http://dev.gentoo.org/~grobian/distfiles prefix-overlay-${PV}.tar.bz2
+	do_tree https://github.com/wiredhikari/portage/releases/tags/prefix-overlay.tar.bz2
 	fi
 	local ret=$?
 	if [[ -n ${TREE_FROM_SRC} ]]; then
@@ -2297,9 +2297,9 @@ set_helper_vars() {
 	GNU_URL=${GNU_URL:="http://ftp.gnu.org/gnu"}
 	DISTFILES_G_O="http://distfiles.prefix.bitzolder.nl"
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
-	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}
-	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} http://rsync.prefix.bitzolder.nl)
-	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/snapshots"}
+	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}	
+	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/)
+ 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/portage/archive/refs/tags"} 
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
 	export MAKE CONFIG_SHELL
