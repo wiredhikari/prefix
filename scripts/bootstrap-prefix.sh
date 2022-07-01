@@ -688,7 +688,7 @@ bootstrap_portage() {
 	## It is critical that STABLE_PV is the lastest (non-masked) version that is
 	## included in the snapshot for bootstrap_tree.
 	STABLE_PV="3.0.30.1"
-	[[ ${TESTING_PV} == latest ]] && TESTING_PV="3.0.30.1"
+	[[ ${TESTING_PV} == latest ]] && TESTING_PV="latest"
 	PV="${TESTING_PV:-${STABLE_PV}}"
 	A=prefix-portage-${PV}.tar.bz2
 	einfo "Bootstrapping ${A%.tar.*}"
@@ -1236,7 +1236,7 @@ bootstrap_cmake_core() {
 	rm -rf "${S}"
 	mkdir -p "${S}"
 	cd "${S}"
-	gzip -dc "${DISTDIR}"/${A} | tar -xf -
+	bzip2 -dc "${DISTDIR}"/${A} | tar -xf -
 	[[ ${PIPESTATUS[*]} == '0 0' ]] || return 1
 	S="${S}"/cmake-${PV}
 	cd "${S}"
@@ -2299,7 +2299,7 @@ set_helper_vars() {
 	DISTFILES_PFX="http://distfiles.prefix.bitzolder.nl/prefix"
 	GENTOO_MIRRORS=${GENTOO_MIRRORS:="http://distfiles.gentoo.org"}	
 	SNAPSHOT_HOST=$(rapx ${DISTFILES_G_O} https://github.com/wiredhikari/)
- 	SNAPSHOT_URL=${SNAPSHOT_URL:-"${SNAPSHOT_HOST}/portage/archive/refs/tags"} 
+	SNAPSHOT_URL=${SNAPSHOT_URL:-"https://github.com/wiredhikari/portage/archive/refs/tags"}
 	GCC_APPLE_URL="http://www.opensource.apple.com/darwinsource/tarballs/other"
 
 	export MAKE CONFIG_SHELL
