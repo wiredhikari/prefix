@@ -2133,6 +2133,13 @@ bootstrap_stage3() {
 
 		# avoid circular deps with sys-libs/pam, bug#712020
 		pkgs=(
+			sys-libs/libxcrypt
+			app-arch/bzip2
+			dev-lang/perl
+			sys-devel/autoconf
+			sys-devel/automake
+			sys-devel/gnuconfig
+			sys-devel/libtool
 			sys-apps/attr
 			sys-libs/libcap
 			sys-libs/libxcrypt
@@ -2210,6 +2217,7 @@ bootstrap_stage3() {
 	# Build portage and dependencies.
 	pkgs=(
 		sys-apps/coreutils
+		sys-apps/diffutils
 		sys-apps/findutils
 		app-arch/gzip
 		app-arch/tar
