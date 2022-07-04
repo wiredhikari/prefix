@@ -425,7 +425,7 @@ bootstrap_setup() {
 			;;
 		riscv64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/riscv}
-			profile=${profile/20.0/rv64gc/lp64d}
+			profile=${profile/20.0/20.0/rv64gc/lp64d}
 			;;
 		x86_64-pc-linux-gnu)
 			profile=${profile_linux/ARCH/amd64}
@@ -442,7 +442,7 @@ bootstrap_setup() {
 			;;
 		riscv-pc-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/riscv}
-			profile=${profile/20.0/rv64gc/lp64d}
+			profile=${profile/20.0/20.0/rv64gc/lp64d}
 			;;
 		aarch64-unknown-linux-gnu)
 			profile=${profile_linux/ARCH/arm64}
