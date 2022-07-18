@@ -1439,7 +1439,7 @@ bootstrap_gawk() {
 }
 
 bootstrap_binutils() {
-	bootstrap_gnu binutils 2.17
+	bootstrap_gnu binutils 2.38
 }
 
 bootstrap_texinfo() {
@@ -2226,6 +2226,7 @@ bootstrap_stage3() {
 
 	# Build portage and dependencies.
 	pkgs=(
+		app-admin/eselect
 		sys-apps/coreutils
 		sys-apps/findutils
 		app-arch/gzip
@@ -2233,7 +2234,6 @@ bootstrap_stage3() {
 		sys-apps/grep
 		sys-devel/make
 		sys-apps/file
-		app-admin/eselect
 		$( [[ ${CHOST} == *-cygwin* ]] && echo sys-libs/cygwin-crypt )
 	)
 
